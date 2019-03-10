@@ -45,7 +45,7 @@ func Execute() {
 func init() {
 	cobra.OnInitialize(initConfig)
 
-	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.challenge.yaml)")
+	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.coding-challenges/.challenge.yaml)")
 	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
 
@@ -61,6 +61,8 @@ func initConfig() {
 			fmt.Println(err)
 			os.Exit(1)
 		}
+		home = home + "/.coding-challenges"
+		fmt.Println("Home Path: ", home)
 
 		// Search config in home directory with name ".challenge" (without extension).
 		viper.AddConfigPath(home)
