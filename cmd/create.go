@@ -17,7 +17,7 @@ package cmd
 import (
 	"fmt"
 
-	"github.com/keremk/challenge/challenge"
+	challenge "github.com/keremk/challenge/lib"
 	"github.com/spf13/cobra"
 )
 
