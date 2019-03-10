@@ -44,7 +44,6 @@ type Challenge struct {
 }
 
 type Config struct {
-	GithubAccount    string
 	TrackingRepoName string
 	ChallengeFolder  string
 	Organization     string

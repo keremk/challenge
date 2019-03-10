@@ -16,6 +16,7 @@ package challenge
 
 import (
 	"context"
+	"fmt"
 	"net/http"
 
 	"golang.org/x/oauth2"
@@ -35,6 +36,14 @@ func generateChallengeRepositoryName(candidateName string, discipline string) st
 	return "test_" + discipline + "_" + candidateName
 }
 
-func generateTemplateRepositoryName(githubAccount string, templateRepo string) string {
-	return githubAccount + "/" + templateRepo + ".git"
+func generateTemplateRepositoryName(owner string, organization string, templateRepo string) string {
+	var repo string
+	formatString := "https://github.com/%v/%v.git"
+	if organization != "" {
+		repo = fmt.Sprintf(formatString, organization, templateRepo)
+	} else {
+		repo = fmt.Sprintf(formatString, owner, templateRepo)
+	}
+
+	return repo
 }
