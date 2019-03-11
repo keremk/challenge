@@ -48,7 +48,7 @@ func CreateChallenge(candidateName string, discipline string) {
 		os.Exit(1)
 	}
 
-	templateRepoURL := generateTemplateRepositoryName(challengeConfig.Owner, challengeConfig.Organization, challenge.TemplateRepo)
+	templateRepoURL := generateTemplateRepositoryURL(challengeConfig.Owner, challengeConfig.Organization, challenge.TemplateRepoName)
 	fmt.Println(templateRepoURL)
 
 	err = pushStarterProject(templateRepoURL, challengeRepoURL, challengeConfig.Creator.GithubToken)

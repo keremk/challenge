@@ -37,10 +37,10 @@ type Task struct {
 }
 
 type Challenge struct {
-	Discipline   string
-	TemplateRepo string
-	Reviewers    []string
-	Tasks        []Task
+	Discipline       string
+	TemplateRepoName string
+	Reviewers        []string
+	Tasks            []Task
 }
 
 type Config struct {

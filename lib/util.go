@@ -46,13 +46,13 @@ func generateChallengeRepositoryName(candidateName string, discipline string) st
 	return "test_" + discipline + "_" + candidateName
 }
 
-func generateTemplateRepositoryName(owner string, organization string, templateRepo string) string {
+func generateTemplateRepositoryURL(owner string, organization string, templateRepoName string) string {
 	var repo string
 	formatString := "https://github.com/%v/%v.git"
 	if organization != "" {
-		repo = fmt.Sprintf(formatString, organization, templateRepo)
+		repo = fmt.Sprintf(formatString, organization, templateRepoName)
 	} else {
-		repo = fmt.Sprintf(formatString, owner, templateRepo)
+		repo = fmt.Sprintf(formatString, owner, templateRepoName)
 	}
 
 	return repo

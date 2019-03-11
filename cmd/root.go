@@ -61,13 +61,6 @@ func initConfig() {
 			fmt.Println(err)
 			os.Exit(1)
 		}
-		// Find home directory.
-		// home, err := homedir.Dir()
-		// if err != nil {
-		// 	fmt.Println(err)
-		// 	os.Exit(1)
-		// }
-		// home = home + "/.coding-challenges"
 		fmt.Println("Home Path: ", home)
 
 		// Search config in home directory with name ".challenge" (without extension).
