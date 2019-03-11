@@ -19,8 +19,18 @@ import (
 	"fmt"
 	"net/http"
 
+	homedir "github.com/mitchellh/go-homedir"
 	"golang.org/x/oauth2"
 )
+
+func GenerateChannelFolderPath() (string, error) {
+	home, err := homedir.Dir()
+	if err != nil {
+		return "", err
+	}
+
+	return home + "/.coding-challenges", err
+}
 
 func getTokenClient(token string) *http.Client {
 	context := context.Background()
@@ -46,4 +56,13 @@ func generateTemplateRepositoryName(owner string, organization string, templateR
 	}
 
 	return repo
+}
+
+func generateTaskDescriptionFilePath(relativePath string) (string, error) {
+	folderPath, err := GenerateChannelFolderPath()
+	if err != nil {
+		return "", err
+	}
+
+	return folderPath + "/issue-templates/" + relativePath, err
 }

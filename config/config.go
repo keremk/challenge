@@ -45,7 +45,6 @@ type Challenge struct {
 
 type Config struct {
 	TrackingRepoName string
-	ChallengeFolder  string
 	Organization     string
 	Owner            string
 	Creator          Creator

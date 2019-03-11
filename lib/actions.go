@@ -89,7 +89,13 @@ func CreateCandidateTask(candidateName string, discipline string, level int) {
 	}
 
 	task := challenge.Tasks[level]
-	descriptionFilePath := challengeConfig.ChallengeFolder + "issue-templates/" + challenge.Tasks[level].DescriptionFile
+	descriptionFilePath, err := generateTaskDescriptionFilePath(challenge.Tasks[level].DescriptionFile)
+	if err != nil {
+		fmt.Println("Cannot create the description file path")
+		fmt.Println(err)
+		os.Exit(1)
+	}
+
 	description, err := readDescription(descriptionFilePath)
 	if err != nil {
 		fmt.Println("Aborting task creation")
