@@ -47,15 +47,17 @@ func generateChallengeRepositoryName(candidateName string, discipline string) st
 }
 
 func generateTemplateRepositoryURL(owner string, organization string, templateRepoName string) string {
-	var repo string
 	formatString := "https://github.com/%v/%v.git"
-	if organization != "" {
-		repo = fmt.Sprintf(formatString, organization, templateRepoName)
-	} else {
-		repo = fmt.Sprintf(formatString, owner, templateRepoName)
-	}
+	accountName := ownerOrOrganization(owner, organization)
+	return fmt.Sprintf(formatString, accountName, templateRepoName)
+}
 
-	return repo
+func ownerOrOrganization(owner string, organization string) string {
+	if organization != "" {
+		return organization
+	} else {
+		return owner
+	}
 }
 
 func generateTaskDescriptionFilePath(relativePath string) (string, error) {

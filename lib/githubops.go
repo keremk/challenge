@@ -39,7 +39,7 @@ func createRepository(repoName string, organization string, token string) (strin
 	return *repository.CloneURL, nil
 }
 
-func createIssue(issue Issue, owner string, repoName string, token string) error {
+func createIssue(issue Issue, accountName string, repoName string, token string) error {
 	context := context.Background()
 
 	issueRequest := github.IssueRequest{
@@ -51,12 +51,12 @@ func createIssue(issue Issue, owner string, repoName string, token string) error
 	tokenClient := getTokenClient(token)
 	client := github.NewClient(tokenClient)
 
-	_, _, err := client.Issues.Create(context, owner, repoName, &issueRequest)
+	_, _, err := client.Issues.Create(context, accountName, repoName, &issueRequest)
 
 	return err
 }
 
-func addCollaborator(githubName string, owner string, repoName string, token string) error {
+func addCollaborator(githubName string, accountName string, repoName string, token string) error {
 	context := context.Background()
 
 	tokenClient := getTokenClient(token)
@@ -66,7 +66,7 @@ func addCollaborator(githubName string, owner string, repoName string, token str
 		Permission: "push",
 	}
 
-	_, err := client.Repositories.AddCollaborator(context, owner, repoName, githubName, &options)
+	_, err := client.Repositories.AddCollaborator(context, accountName, repoName, githubName, &options)
 
 	return err
 }

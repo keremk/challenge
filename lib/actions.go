@@ -34,6 +34,8 @@ func CreateChallenge(candidateName string, discipline string) {
 	fmt.Println("Owner: ", challengeConfig.Owner)
 	fmt.Println("TrackingRepo: ", challengeConfig.TrackingRepoName)
 
+	// createRepository call always take the Organization name, it's implementation takes into account
+	// if the organization is an empty string and creates a different url altogether
 	challengeRepoURL, err := createRepository(repoName, challengeConfig.Organization, challengeConfig.Creator.GithubToken)
 	if err != nil {
 		fmt.Println("Cannot create the challenge repository")
@@ -62,7 +64,8 @@ func CreateChallenge(candidateName string, discipline string) {
 	CreateCandidateTask(candidateName, discipline, 0)
 	createTrackingIssue(candidateName, discipline, challengeRepoURL)
 
-	err = addCollaborator(candidateName, challengeConfig.Owner, repoName, challengeConfig.Creator.GithubToken)
+	accountName := ownerOrOrganization(challengeConfig.Owner, challengeConfig.Organization)
+	err = addCollaborator(candidateName, accountName, repoName, challengeConfig.Creator.GithubToken)
 
 	if err != nil {
 		fmt.Println("Cannot add the candidate as a collaborator ", candidateName)
@@ -110,7 +113,8 @@ func CreateCandidateTask(candidateName string, discipline string, level int) {
 	}
 
 	repoName := generateChallengeRepositoryName(candidateName, discipline)
-	err = createIssue(issue, challengeConfig.Owner, repoName, challengeConfig.Creator.GithubToken)
+	accountName := ownerOrOrganization(challengeConfig.Owner, challengeConfig.Organization)
+	err = createIssue(issue, accountName, repoName, challengeConfig.Creator.GithubToken)
 
 	if err != nil {
 		fmt.Println("Could not create a candidate task at ", repoName)
@@ -131,7 +135,8 @@ func createTrackingIssue(candidateName string, discipline string, challengeRepoU
 		Discipline:  discipline,
 		Description: description,
 	}
-	err := createIssue(issue, challengeConfig.Owner, challengeConfig.TrackingRepoName, challengeConfig.Creator.GithubToken)
+	accountName := ownerOrOrganization(challengeConfig.Owner, challengeConfig.Organization)
+	err := createIssue(issue, accountName, challengeConfig.TrackingRepoName, challengeConfig.Creator.GithubToken)
 
 	if err != nil {
 		fmt.Println("Could not create a tracking issue at ", challengeConfig.TrackingRepoName)
